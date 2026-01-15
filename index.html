@@ -10,28 +10,40 @@
       color: #eee;
       padding: 30px;
     }
+
     .container {
-      max-width: 700px;
+      max-width: 900px;
       background: #1e1e1e;
-      padding: 20px;
+      padding: 25px;
       border-radius: 8px;
     }
+
     input, button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
       background: #222;
       color: #eee;
       border: 1px solid #444;
       font-size: 16px;
     }
+
     #output {
       margin-top: 20px;
-      white-space: pre-wrap;
       background: #000;
       padding: 15px;
       border-radius: 5px;
-      min-height: 120px;
+
+      /* IMPORTANT PART */
+      min-height: 300px;
+      max-height: 500px;
+      overflow: auto;
+
+      white-space: pre-wrap;
+      word-break: break-all;
+
+      resize: vertical;
+      border: 1px solid #333;
     }
   </style>
 </head>
@@ -44,7 +56,6 @@
   </div>
 
   <script>
-    // Deterministic seeded RNG
     function seededRandom(seed) {
       let h = 1779033703 ^ seed.length;
       for (let i = 0; i < seed.length; i++) {
@@ -59,7 +70,6 @@
       };
     }
 
-    // All alphanumeric + punctuation + symbols
     const charset =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
       "abcdefghijklmnopqrstuvwxyz" +
@@ -78,7 +88,7 @@
       const rand = seededRandom(seed);
       let result = "";
 
-      for (let i = 0; i < 500; i++) {
+      for (let i = 0; i < 1000; i++) {
         const index = Math.floor(rand() * charset.length);
         result += charset[index];
       }

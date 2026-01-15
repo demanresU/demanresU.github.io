@@ -4,10 +4,7 @@
   <meta charset="UTF-8" />
   <title>Seed Character Generator</title>
   <style>
-    /* FIX: make all elements size consistently */
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       font-family: monospace;
@@ -21,9 +18,10 @@
       background: #1e1e1e;
       padding: 25px;
       border-radius: 8px;
+      margin-bottom: 30px;
     }
 
-    input, button {
+    input, textarea, button {
       width: 100%;
       padding: 12px;
       margin-top: 10px;
@@ -31,32 +29,44 @@
       color: #eee;
       border: 1px solid #444;
       font-size: 16px;
+      font-family: monospace;
     }
 
-    #output {
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .output {
       margin-top: 20px;
       background: #000;
       padding: 15px;
       border-radius: 5px;
-
-      min-height: 300px;
-      max-height: 500px;
+      min-height: 200px;
+      max-height: 400px;
       overflow: auto;
-
       white-space: pre-wrap;
       word-break: break-all;
-
-      resize: vertical;
       border: 1px solid #333;
     }
   </style>
 </head>
 <body>
+
+  <!-- FORWARD GENERATOR -->
   <div class="container">
-    <h2>Seed‑Based Character Generator</h2>
+    <h2>Seed → Text</h2>
     <input id="seedInput" placeholder="Enter seed..." />
     <button onclick="generate()">Generate</button>
-    <div id="output"></div>
+    <div id="output" class="output"></div>
+  </div>
+
+  <!-- BACKWARDS GENERATOR -->
+  <div class="container">
+    <h2>Text → Seed (Brute Force)</h2>
+    <textarea id="targetText" placeholder="Enter text to reverse (keep it short)"></textarea>
+    <button onclick="reverseGenerate()">Find Seed</button>
+    <div id="reverseOutput" class="output"></div>
   </div>
 
   <script>
@@ -80,24 +90,42 @@
       "0123456789" +
       "!@#$%^&*()_+-=[]{}|;:',.<>/?`~\"\\ ";
 
+    function generateText(seed, length) {
+      const rand = seededRandom(seed);
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += charset[Math.floor(rand() * charset.length)];
+      }
+      return result;
+    }
+
     function generate() {
       const seed = document.getElementById("seedInput").value;
-      const output = document.getElementById("output");
+      document.getElementById("output").textContent =
+        seed ? generateText(seed, 1000) : "Enter a seed.";
+    }
 
-      if (!seed) {
-        output.textContent = "Please enter a seed.";
+    function reverseGenerate() {
+      const target = document.getElementById("targetText").value;
+      const out = document.getElementById("reverseOutput");
+
+      if (!target) {
+        out.textContent = "Enter target text.";
         return;
       }
 
-      const rand = seededRandom(seed);
-      let result = "";
+      out.textContent = "Searching... (numeric seeds 0–500000)";
 
-      for (let i = 0; i < 1000; i++) {
-        const index = Math.floor(rand() * charset.length);
-        result += charset[index];
+      const MAX_SEED = 500000;
+      for (let i = 0; i <= MAX_SEED; i++) {
+        const seed = String(i);
+        if (generateText(seed, target.length) === target) {
+          out.textContent = `Seed found:\n${seed}`;
+          return;
+        }
       }
 
-      output.textContent = result;
+      out.textContent = "No seed found in range.";
     }
   </script>
 </body>

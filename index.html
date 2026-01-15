@@ -70,11 +70,13 @@
       };
     }
 
-    const charset =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-      "abcdefghijklmnopqrstuvwxyz" +
-      "0123456789" +
-      "!@#$%^&*()_+-=[]{}|;:',.<>/?`~\"\\ ";
+const charset =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+  "abcdefghijklmnopqrstuvwxyz" +
+  "0123456789" +
+  "!@#$%^&*()_+-=[]{}|;:',.<>/?`~\"\\ ";
+                                               ↑ this is a space
+
 
     function generate() {
       const seed = document.getElementById("seedInput").value;

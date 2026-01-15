@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cool HTML Page</title>
+
+  <style>
+    /* --------------------
+       Global styles
+    -------------------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* --------------------
+       Header
+    -------------------- */
+    header {
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: -0.03em;
+    }
+
+    header p {
+      margin-top: 1rem;
+      opacity: 0.8;
+      font-size: 1.1rem;
+    }
+
+    /* --------------------
+       Glass cards
+    -------------------- */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      position: relative;
+      padding: 2rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .card h2 {
+      margin-bottom: 0.75rem;
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    /* --------------------
+       Button
+    -------------------- */
+    .btn {
+      display: inline-block;
+      margin-top: 1.25rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #00f260, #0575e6);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    /* --------------------
+       Footer
+    -------------------- */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🚀 Welcome to Your Cool Page</h1>
+    <p>Glassmorphism, gradients, and just enough attitude.</p>
+  </header>
+
+  <section class="container">
+    <div class="card">
+      <h2>✨ Modern Design</h2>
+      <p>
+        Clean layouts, smooth animations, and a glassy UI that looks
+        great on any screen size.
+      </p>
+      <a href="#" class="btn">Learn more</a>
+    </div>
+
+    <div class="card">
+      <h2>⚡ Fast & Lightweight</h2>
+      <p>
+        No frameworks, no bloat. Just HTML, CSS, and a tiny bit of magic.
+      </p>
+      <a href="#" class="btn">See how</a>
+    </div>
+
+    <div class="card">
+      <h2>🎨 Easy to Customize</h2>
+      <p>
+        Swap colors, content, or animations in minutes. Make it yours.
+      </p>
+      <a href="#" class="btn">Customize</a>
+    </div>
+  </section>
+
+  <footer>
+    Built with ❤️ and pure HTML/CSS
+  </footer>
+
+  <script>
+    // Small interaction: click a card to give feedback
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        card.animate(
+          [
+            { transform: "scale(1)" },
+            { transform: "scale(0.96)" },
+            { transform: "scale(1)" }
+          ],
+          { duration: 300, easing: "ease-out" }
+        );
+      });
+    });
+  </script>
+</body>
+</html>
